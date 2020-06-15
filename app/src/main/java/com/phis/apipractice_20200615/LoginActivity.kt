@@ -1,5 +1,6 @@
 package com.phis.apipractice_20200615
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.phis.apipractice_20200615.utils.ServerUtil
@@ -53,6 +54,14 @@ class LoginActivity : BaseActivity() {
             )
 
         }
+
+        signupBtn.setOnClickListener {
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+
+        }
+
+
 
     }
 

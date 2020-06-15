@@ -3,6 +3,7 @@ package com.phis.apipractice_20200615.utils
 import android.content.Context
 import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -45,15 +46,44 @@ class ServerUtil {
                     Log.d("JSON응답", json.toString())
 
                     handler?.onResponse(json)
+                }
+            })
+        }
 
+        //중복체크를 get으로 요청하는 함수
+        fun getRequestDuplicatedCheck(
+            context: Context,
+            type: String,
+            input: String,
+            handler: JsonResponseHandler?
+        ) {
+            val client = OkHttpClient()
+
+            //가공된 주소를 가지고 newBuilder로 변환 (파라미터 첨부 준비)
+            val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedQueryParameter("type",type).addEncodedQueryParameter("value", input)
+            val urlString = urlBuilder.build().toString()
+            val request = Request.Builder().url(urlString).get().build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    //연결 자체에 실패한 경우
 
                 }
 
+                override fun onResponse(call: Call, response: Response) {
+                    //정상적인 응답의 경우
+                    val bodyString = response.body!!.string()
 
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
             })
 
-        }
 
+        }
     }
 
     //서버 통신의 응답 내용을 Activity에 전달해주는 인터페이스
