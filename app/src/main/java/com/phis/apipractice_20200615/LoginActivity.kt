@@ -1,7 +1,10 @@
 package com.phis.apipractice_20200615
 
 import android.os.Bundle
+import android.widget.Toast
+import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 
 class LoginActivity : BaseActivity() {
 
@@ -24,7 +27,30 @@ class LoginActivity : BaseActivity() {
             val email = emailEdt.text.toString()
             val password = passwordEdt.text.toString()
 
+            ServerUtil.postRequestLogin(
+                mContext,
+                email,
+                password,
+                object : ServerUtil.JsonResponseHandler{
+                    override fun onResponse(json: JSONObject) {
+                        val codeNumber = json.getInt("code")
+                        if ( codeNumber == 200){
+                            //로그인 성공
 
+                        }else{
+                            //백그라운드 쓰레드는 UI를 직접적으로 컨트롤 할수 없다.
+                            runOnUiThread {
+                                //로그인 실패
+                                Toast.makeText(mContext,"${json.getString("message")}",Toast.LENGTH_SHORT).show()
+                            }
+
+
+
+                        }
+                    }
+
+                }
+            )
 
         }
 
