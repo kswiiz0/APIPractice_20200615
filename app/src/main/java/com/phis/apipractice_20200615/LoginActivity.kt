@@ -1,6 +1,7 @@
 package com.phis.apipractice_20200615
 
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
 
@@ -18,6 +19,14 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvent() {
+
+        loginBtn.setOnClickListener {
+            val email = emailEdt.text.toString()
+            val password = passwordEdt.text.toString()
+
+
+
+        }
 
     }
 
