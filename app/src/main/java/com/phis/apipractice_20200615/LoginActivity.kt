@@ -43,6 +43,10 @@ class LoginActivity : BaseActivity() {
 
                             ContextUtil.setUserToken(mContext,token)
 
+                            val myIntent = Intent(mContext,MainActivity::class.java)
+                            startActivity(myIntent)
+                            finish()
+
                         }else{
                             //백그라운드 쓰레드는 UI를 직접적으로 컨트롤 할수 없다.
                             runOnUiThread {
