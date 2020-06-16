@@ -3,6 +3,7 @@ package com.phis.apipractice_20200615
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import com.phis.apipractice_20200615.utils.ContextUtil
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
@@ -37,6 +38,10 @@ class LoginActivity : BaseActivity() {
                         val codeNumber = json.getInt("code")
                         if ( codeNumber == 200){
                             //로그인 성공
+                            val data = json.getJSONObject("data")
+                            val token = data.getString("token")
+
+                            ContextUtil.setUserToken(mContext,token)
 
                         }else{
                             //백그라운드 쓰레드는 UI를 직접적으로 컨트롤 할수 없다.
