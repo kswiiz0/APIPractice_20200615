@@ -53,14 +53,14 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/NickNameEdt"
+            android:id="@+id/nickNameEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="닉네임으로 사용됩니다."
             android:inputType="text"
             />
         <Button
-            android:id="@+id/NickNameBtn"
+            android:id="@+id/nickNameBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -70,7 +70,7 @@
 
     </FrameLayout>
     <TextView
-        android:id="@+id/NickNameCheckResultTxt"
+        android:id="@+id/nickNameCheckResultTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닉네임 중복검사를 해주세요."/>
