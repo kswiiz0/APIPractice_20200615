@@ -49,15 +49,13 @@ class MainActivity : BaseActivity() {
                 val topics = data.getJSONArray("topics")
                 for (i in 0..topics.length() - 1) {
                     val topic = topics.getJSONObject(i)
+                    topicList.add(Topic.getTopicFromJson(topic))
 
-//                    topicList.add(Topic.)
                 }
-
-
             }
-
         })
-
+        myViewAdapter = MyViewAdapter(mContext, R.layout.topic_list_item, topicList)
+        topicListView.adapter = myViewAdapter
 
     }
 
