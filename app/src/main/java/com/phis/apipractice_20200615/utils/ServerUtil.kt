@@ -7,6 +7,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
+
 class ServerUtil {
 
     //java의 static에 대응되는 개념.
@@ -61,7 +62,8 @@ class ServerUtil {
 
             //가공된 주소를 가지고 newBuilder로 변환 (파라미터 첨부 준비)
             val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
-            urlBuilder.addEncodedQueryParameter("type",type).addEncodedQueryParameter("value", input)
+            urlBuilder.addEncodedQueryParameter("type", type)
+                .addEncodedQueryParameter("value", input)
             val urlString = urlBuilder.build().toString()
             val request = Request.Builder().url(urlString).get().build()
 
@@ -81,6 +83,46 @@ class ServerUtil {
                     handler?.onResponse(json)
                 }
             })
+
+
+        }
+
+        fun putRequestSignUp(
+            context: Context,
+            email: String,
+            password: String,
+            nick_name: String,
+            handler: JsonResponseHandler?
+        ){
+
+            val client = OkHttpClient()
+            val urlString = "${BASE_URL}/user"
+            val formData = FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .add("nick_name", nick_name)
+                .build()
+
+            val request = Request.Builder().url(urlString).put(formData).build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+
+
+
+
+
 
 
         }
