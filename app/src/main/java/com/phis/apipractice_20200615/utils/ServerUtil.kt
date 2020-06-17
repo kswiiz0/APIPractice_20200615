@@ -93,7 +93,7 @@ class ServerUtil {
             password: String,
             nick_name: String,
             handler: JsonResponseHandler?
-        ){
+        ) {
 
             val client = OkHttpClient()
             val urlString = "${BASE_URL}/user"
@@ -121,7 +121,6 @@ class ServerUtil {
         }
 
 
-
         fun getRequestUserInfo(
             context: Context,
             handler: JsonResponseHandler?
@@ -133,10 +132,10 @@ class ServerUtil {
             val urlString = urlBuilder.build().toString()
             val request =
                 Request.Builder()
-                .url(urlString)
-                .get()
-                .header("X-Http-Token",ContextUtil.getUserToken(context))
-                .build()
+                    .url(urlString)
+                    .get()
+                    .header("X-Http-Token", ContextUtil.getUserToken(context))
+                    .build()
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
@@ -157,7 +156,6 @@ class ServerUtil {
         }
 
 
-
         fun getRequestMainInfo(
             context: Context,
             handler: JsonResponseHandler?
@@ -171,7 +169,43 @@ class ServerUtil {
                 Request.Builder()
                     .url(urlString)
                     .get()
-                    .header("X-Http-Token",ContextUtil.getUserToken(context))
+                    .header("X-Http-Token", ContextUtil.getUserToken(context))
+                    .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    //정상적인 응답의 경우
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+
+
+        }
+
+
+        fun getRequestTopicDetail(
+            context: Context,
+            topicId: Int,
+            handler: JsonResponseHandler?
+        ) {
+            val client = OkHttpClient()
+
+            val urlBuilder = "${BASE_URL}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()
+
+            val urlString = urlBuilder.build().toString()
+            val request =
+                Request.Builder()
+                    .url(urlString)
+                    .get()
+                    .header("X-Http-Token", ContextUtil.getUserToken(context))
                     .build()
 
             client.newCall(request).enqueue(object : Callback {
