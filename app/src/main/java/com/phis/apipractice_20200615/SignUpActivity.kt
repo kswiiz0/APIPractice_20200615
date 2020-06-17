@@ -1,6 +1,9 @@
 package com.phis.apipractice_20200615
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -26,6 +29,25 @@ class SignUpActivity : BaseActivity() {
 
         var isEmailOk = false
         var isNickNameOk = false
+
+        emailEdt.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            //문구가 바꼈을때
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("바뀐이메일",s.toString())
+                emailCheckResultTxt.text = "이메일 중복검사를 해주세요."
+                isEmailOk = false
+            }
+
+        })
+
 
         emailCheckBtn.setOnClickListener {
             val email = emailEdt.text.toString()
@@ -125,9 +147,6 @@ class SignUpActivity : BaseActivity() {
                         }
                     }
                 })
-
-
-
         }
 
 
