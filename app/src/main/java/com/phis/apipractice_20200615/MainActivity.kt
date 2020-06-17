@@ -90,6 +90,13 @@ class MainActivity : BaseActivity() {
         }
 
 
+        topicListView.setOnItemClickListener { parent, view, position, id ->
+            val myIntent = Intent(mContext,ViewTopicDetailActivity::class.java)
+            startActivity(myIntent)
+        }
+
+
+
     }
 
 
