@@ -33,27 +33,30 @@ class LoginActivity : BaseActivity() {
                 mContext,
                 email,
                 password,
-                object : ServerUtil.JsonResponseHandler{
+                object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(json: JSONObject) {
                         val codeNumber = json.getInt("code")
-                        if ( codeNumber == 200){
+                        if (codeNumber == 200) {
                             //로그인 성공
                             val data = json.getJSONObject("data")
                             val token = data.getString("token")
 
-                            ContextUtil.setUserToken(mContext,token)
+                            ContextUtil.setUserToken(mContext, token)
 
-                            val myIntent = Intent(mContext,MainActivity::class.java)
+                            val myIntent = Intent(mContext, MainActivity::class.java)
                             startActivity(myIntent)
                             finish()
 
-                        }else{
+                        } else {
                             //백그라운드 쓰레드는 UI를 직접적으로 컨트롤 할수 없다.
                             runOnUiThread {
                                 //로그인 실패
-                                Toast.makeText(mContext,"${json.getString("message")}",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    mContext,
+                                    "${json.getString("message")}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-
 
 
                         }
@@ -70,6 +73,10 @@ class LoginActivity : BaseActivity() {
 
         }
 
+        autoLoginCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            ContextUtil.setAutoLogin(mContext, isChecked)
+
+        }
 
 
     }

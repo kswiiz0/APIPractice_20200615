@@ -1,10 +1,12 @@
 package com.phis.apipractice_20200615
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import com.phis.apipractice_20200615.adapters.MyViewAdapter
+import com.phis.apipractice_20200615.adapters.TopicAdapter
 import com.phis.apipractice_20200615.datas.Topic
-import com.phis.apipractice_20200615.datas.User
+import com.phis.apipractice_20200615.utils.ContextUtil
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -12,7 +14,7 @@ import org.json.JSONObject
 class MainActivity : BaseActivity() {
 
     val topicList = ArrayList<Topic>()
-    lateinit var myViewAdapter: MyViewAdapter
+    lateinit var myViewAdapter: TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +25,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+
+        myViewAdapter = TopicAdapter(mContext, R.layout.topic_list_item, topicList)
+        topicListView.adapter = myViewAdapter
+
         ServerUtil.getRequestMainInfo(mContext, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(json: JSONObject) {
+
+
 /*
                 "code":200,
                 "message":"내 정보 조회",
@@ -42,7 +51,6 @@ class MainActivity : BaseActivity() {
                 runOnUiThread {
                     nickNameTxt.text = loginUser.nickname
                     emailTxt.text = loginUser.email
-
                 }
 */
                 val data = json.getJSONObject("data")
@@ -50,16 +58,38 @@ class MainActivity : BaseActivity() {
                 for (i in 0..topics.length() - 1) {
                     val topic = topics.getJSONObject(i)
                     topicList.add(Topic.getTopicFromJson(topic))
-
+                    runOnUiThread {
+                        myViewAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         })
-        myViewAdapter = MyViewAdapter(mContext, R.layout.topic_list_item, topicList)
-        topicListView.adapter = myViewAdapter
+
 
     }
 
     override fun setupEvent() {
+
+        logoutBtn.setOnClickListener {
+            val alert = AlertDialog.Builder(mContext)
+            alert.setTitle("로그아웃")
+            alert.setMessage("로그아웃을 진행합니다.")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                ContextUtil.setUserToken(mContext, "")
+
+                val myIntent = Intent(mContext, LoginActivity::class.java)
+                startActivity(myIntent)
+                finish()
+
+
+            })
+            alert.setNegativeButton("취소", null)
+            alert.show()
+
+
+        }
+
+
     }
 
 
