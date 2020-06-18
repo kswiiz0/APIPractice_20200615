@@ -49,6 +49,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -58,6 +59,16 @@
                         android:text="첫번째진영"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/firstSideVoteCountTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="--표"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
                         />
 
 
@@ -76,6 +87,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -85,6 +97,16 @@
                         android:text="두번째진영"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/secondSideVoteCountTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="--표"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
                         />
 
 

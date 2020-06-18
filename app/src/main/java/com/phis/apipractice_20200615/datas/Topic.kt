@@ -7,7 +7,7 @@ class Topic {
     var id = 0
     var title = ""
     var imageUrl = ""
-    var sides = ""
+    val sideList = ArrayList<TopicSide>()
 
 
     companion object {
@@ -31,9 +31,14 @@ class Topic {
             t.title = json.getString("title")
             t.imageUrl = json.getString("img_url")
 
-            val sides = json.getJSONObject("sides")
+            val sides = json.getJSONArray("sides")
+
             for (i in 0..sides.length() - 1) {
-                
+                val side = sides.getJSONObject(i)
+
+                val topicSide = TopicSide.getTopicSideFromJson(side)
+                t.sideList.add(topicSide)
+
             }
 
 

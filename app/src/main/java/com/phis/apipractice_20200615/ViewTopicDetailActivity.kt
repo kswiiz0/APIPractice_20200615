@@ -49,6 +49,15 @@ class ViewTopicDetailActivity : BaseActivity() {
                     runOnUiThread {
                         topicTitleTxt.text = mTopic.title
                         Glide.with(mContext).load(mTopic.imageUrl).into(topicImg)
+
+                        firstSideTitleTxt.text = mTopic.sideList[0].title
+                        firstSideVoteCountTxt.text = "${mTopic.sideList[0].voteCount.toString()}표"
+
+
+                        secondSideTitleTxt.text = mTopic.sideList[1].title
+                        secondSideVoteCountTxt.text = "${mTopic.sideList[1].voteCount.toString()}표"
+
+
                     }
 
 
