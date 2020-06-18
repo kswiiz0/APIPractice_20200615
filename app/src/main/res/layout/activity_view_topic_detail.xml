@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
+        <!--반투명 처리-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="#CC000000" />
+
         <ImageView
             android:id="@+id/topicImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             tools:src="@mipmap/ic_launcher" />
-
-        <!--반투명 처리-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:src="#AA000000" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -70,6 +70,12 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         />
+                    <Button
+                        android:id="@+id/firstSideVoteBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="투표하기"
+                        />
 
 
                 </LinearLayout>
@@ -107,6 +113,13 @@
                         android:text="--표"
                         android:textColor="@color/white"
                         android:textSize="16sp"
+                        />
+
+                    <Button
+                        android:id="@+id/secondSideVoteBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="투표하기"
                         />
 
 

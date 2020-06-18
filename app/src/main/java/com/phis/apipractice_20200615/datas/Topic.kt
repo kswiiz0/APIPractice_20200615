@@ -8,6 +8,8 @@ class Topic {
     var title = ""
     var imageUrl = ""
     val sideList = ArrayList<TopicSide>()
+    var mySideId = 0
+    var mySelectedSideIndex = -1
 
 
     companion object {
@@ -30,6 +32,8 @@ class Topic {
             t.id = json.getInt("id")
             t.title = json.getString("title")
             t.imageUrl = json.getString("img_url")
+            t.mySideId = json.getInt("my_side_id")
+
 
             val sides = json.getJSONArray("sides")
 
@@ -39,6 +43,13 @@ class Topic {
                 val topicSide = TopicSide.getTopicSideFromJson(side)
                 t.sideList.add(topicSide)
 
+                if ( topicSide.id == t.mySideId){
+                    t.mySelectedSideIndex = i
+                }
+            }
+
+            if ( t.mySideId == -1 ){
+                t.mySelectedSideIndex = -1
             }
 
 

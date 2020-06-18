@@ -226,6 +226,37 @@ class ServerUtil {
 
         }
 
+        fun postRequestTopicVote(
+            context: Context,
+            sideId: Int,
+            handler: JsonResponseHandler?
+        ) {
+
+            val client = OkHttpClient()
+            val urlString = "${BASE_URL}/topic_vote"
+            val formData = FormBody.Builder()
+                .add("side_id", sideId.toString())
+                .build()
+
+            val request = Request.Builder().url(urlString)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .post(formData).build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+        }
+
 
     }
 

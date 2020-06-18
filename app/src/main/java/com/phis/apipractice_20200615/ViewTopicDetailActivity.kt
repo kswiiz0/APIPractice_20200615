@@ -58,6 +58,19 @@ class ViewTopicDetailActivity : BaseActivity() {
                         secondSideVoteCountTxt.text = "${mTopic.sideList[1].voteCount.toString()}표"
 
 
+                        if ( mTopic.mySelectedSideIndex == -1){
+                            firstSideVoteBtn.text = "투표하기"
+                            secondSideVoteBtn.text = "투표하기"
+                        }else if (mTopic.mySelectedSideIndex == 0){
+                            firstSideVoteBtn.text = "취소하기"
+                            secondSideVoteBtn.text = "갈아타기"
+                        }else{
+                            firstSideVoteBtn.text = "갈아타기"
+                            secondSideVoteBtn.text = "취소하기"
+                        }
+
+
+
                     }
 
 
@@ -67,6 +80,37 @@ class ViewTopicDetailActivity : BaseActivity() {
 
 
     override fun setupEvent() {
+
+        firstSideVoteBtn.setOnClickListener {
+
+            val sideId = mTopic.sideList[0].id
+            ServerUtil.postRequestTopicVote(
+                mContext,
+                sideId,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(json: JSONObject) {
+                        getTopicDetailFromServer()
+                    }
+                })
+
+
+        }
+
+
+        secondSideVoteBtn.setOnClickListener {
+
+            val sideId = mTopic.sideList[1].id
+            ServerUtil.postRequestTopicVote(
+                mContext,
+                sideId,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(json: JSONObject) {
+                        getTopicDetailFromServer()
+                    }
+                })
+
+        }
+
     }
 
 }

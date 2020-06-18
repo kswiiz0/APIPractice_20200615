@@ -16,6 +16,7 @@ class TopicSide {
     var title = ""
     var voteCount = 0
 
+
     companion object {
         fun getTopicSideFromJson(json: JSONObject): TopicSide {
             var ts = TopicSide()
