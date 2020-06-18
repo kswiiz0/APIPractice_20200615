@@ -11,11 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
-        <!--반투명 처리-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:src="#CC000000" />
 
         <ImageView
             android:id="@+id/topicImg"
@@ -23,6 +18,12 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             tools:src="@mipmap/ic_launcher" />
+
+        <!--반투명 처리-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="#AA000000" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -58,8 +59,7 @@
                         android:layout_height="wrap_content"
                         android:text="첫번째진영"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/firstSideVoteCountTxt"
@@ -68,14 +68,13 @@
                         android:layout_marginTop="5dp"
                         android:text="--표"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
-                        />
+                        android:textSize="16sp" />
+
                     <Button
                         android:id="@+id/firstSideVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="투표하기"
-                        />
+                        android:text="투표하기" />
 
 
                 </LinearLayout>
@@ -84,9 +83,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="VS"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:text="VS"
                     android:textColor="#FFFFFF" />
 
 
@@ -102,8 +101,7 @@
                         android:layout_height="wrap_content"
                         android:text="두번째진영"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/secondSideVoteCountTxt"
@@ -112,27 +110,33 @@
                         android:layout_marginTop="5dp"
                         android:text="--표"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
-                        />
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/secondSideVoteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="투표하기"
-                        />
-
-
+                        android:text="투표하기" />
                 </LinearLayout>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/replayListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:text="의견 등록하기"/>
 
 
     </FrameLayout>
-
-
 </LinearLayout>
