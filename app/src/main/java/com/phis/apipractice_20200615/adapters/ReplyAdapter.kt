@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.phis.apipractice_20200615.R
 import com.phis.apipractice_20200615.datas.TopicReply
+import java.text.SimpleDateFormat
 
 class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicReply>) :
     ArrayAdapter<TopicReply>(mContext, resId, mList) {
@@ -28,9 +29,12 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         val createTimeTxt = row.findViewById<TextView>(R.id.createTimeTxt)
 
         val item = mList[position]
-        nicknameTxt.text = item.user.nickname
+        nicknameTxt.text = item.writer.nickname
         contentTxt.text = item.content
-        createTimeTxt.text = "아직!!"
+
+        val sdf = SimpleDateFormat("M월 d일 a h시 m분")
+
+        createTimeTxt.text = sdf.format(item.createAt.time)
 
         return row
     }
