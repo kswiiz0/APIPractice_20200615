@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.phis.apipractice_20200615.adapters.ReplyAdapter
 import com.phis.apipractice_20200615.datas.Topic
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
@@ -13,6 +14,8 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     var mTopicId = -1
     lateinit var mTopic: Topic
+    lateinit var replyAdapter: ReplyAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,17 @@ class ViewTopicDetailActivity : BaseActivity() {
         }
 
         getTopicDetailFromServer()
+
+//        runOnUiThread {
+//            replyAdapter = ReplyAdapter(
+//                mContext,
+//                R.layout.listview_item_topic_replay,
+//                mTopic.replyList
+//            )
+//            replayListView.adapter = replyAdapter
+//
+//        }
+
 
     }
 
@@ -58,19 +72,23 @@ class ViewTopicDetailActivity : BaseActivity() {
                         secondSideVoteCountTxt.text = "${mTopic.sideList[1].voteCount.toString()}표"
 
 
-                        if ( mTopic.mySelectedSideIndex == -1){
+                        if (mTopic.mySelectedSideIndex == -1) {
                             firstSideVoteBtn.text = "투표하기"
                             secondSideVoteBtn.text = "투표하기"
-                        }else if (mTopic.mySelectedSideIndex == 0){
+                        } else if (mTopic.mySelectedSideIndex == 0) {
                             firstSideVoteBtn.text = "취소하기"
                             secondSideVoteBtn.text = "갈아타기"
-                        }else{
+                        } else {
                             firstSideVoteBtn.text = "갈아타기"
                             secondSideVoteBtn.text = "취소하기"
                         }
 
-
-
+                        replyAdapter = ReplyAdapter(
+                            mContext,
+                            R.layout.listview_item_topic_replay,
+                            mTopic.replyList
+                        )
+                        replayListView.adapter = replyAdapter
                     }
 
 

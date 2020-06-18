@@ -12,6 +12,10 @@ class Topic {
     var mySelectedSideIndex = -1
 
 
+
+    val replyList = ArrayList<TopicReply>()
+
+
     companion object {
         fun getTopicFromJson(json: JSONObject): Topic {
 /*
@@ -52,6 +56,12 @@ class Topic {
                 t.mySelectedSideIndex = -1
             }
 
+
+
+            val replyes = json.getJSONArray("replies")
+            for ( i in 0..replyes.length()-1){
+                t.replyList.add(TopicReply.getTopicReplyFromJson(replyes.getJSONObject(i)))
+            }
 
 
             return t
