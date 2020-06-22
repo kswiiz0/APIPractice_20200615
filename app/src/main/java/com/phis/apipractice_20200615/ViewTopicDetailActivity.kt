@@ -131,10 +131,25 @@ class ViewTopicDetailActivity : BaseActivity() {
         }
 
         postReplyBtn.setOnClickListener {
-            val myIntent = Intent(mContext,EditReplyActivity::class.java)
-            startActivity(myIntent)
-        }
 
+            mTopic.mySideInfo?.let {
+
+                //it:TopicSide
+                //선택된 객체를 가리킨다.
+                val myIntent = Intent(mContext, EditReplyActivity::class.java)
+                myIntent.putExtra("topicTitle", mTopic.title)
+                myIntent.putExtra("mySideTitle", it.title)
+
+                startActivity(myIntent)
+            }.let {
+
+                //null이던 아니면 무조건 수행된다.
+                if (it == null) {
+                    Toast.makeText(mContext, "투표를 해야만 의견 작성이 가능하다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
 
 
     }
