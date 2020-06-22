@@ -26,6 +26,10 @@ class TopicReply {
     var likeCount = 0
     var dislikeCount = 0
 
+
+    lateinit var selectedSide : TopicSide
+
+
     companion object {
 
         fun getTopicReplyFromJson(json: JSONObject): TopicReply {
@@ -36,6 +40,7 @@ class TopicReply {
             tr.sideId = json.getInt("side_id")
             tr.userId = json.getInt("user_id")
             tr.writer = User.getUserFromJson(json.getJSONObject("user"))
+//            tr. = User.getUserFromJson(json.getJSONObject("user"))
 
 
             val createAtStr = json.getString("created_at")
@@ -50,6 +55,9 @@ class TopicReply {
             tr.replyCount = json.getInt("reply_count")
             tr.likeCount = json.getInt("like_count")
             tr.dislikeCount = json.getInt("dislike_count")
+
+            tr.selectedSide = TopicSide.getTopicSideFromJson(json.getJSONObject("selected_side"))
+
 
 
             return tr

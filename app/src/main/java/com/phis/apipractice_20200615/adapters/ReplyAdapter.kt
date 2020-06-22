@@ -33,6 +33,8 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         val likeBtn = row.findViewById<Button>(R.id.likeBtn)
         val dislikeBtn = row.findViewById<Button>(R.id.dislikeBtn)
 
+        val selectedSideTitleTxt = row.findViewById<TextView>(R.id.selectedSideTitleTxt)
+
         val item = mList[position]
         nicknameTxt.text = item.writer.nickname
         contentTxt.text = item.content
@@ -41,14 +43,11 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
 
         createTimeTxt.text = sdf.format(item.createAt.time)
 
-
         replyBtn.text = "답글 : ${item.replyCount}개"
         likeBtn.text = "좋아요 : ${item.likeCount}개"
         dislikeBtn.text = "싫어요 : ${item.dislikeCount}개"
 
-
-
-
+        selectedSideTitleTxt.text = "(${item.selectedSide.title})"
 
         return row
     }
