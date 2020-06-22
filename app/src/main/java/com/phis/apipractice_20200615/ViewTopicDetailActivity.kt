@@ -1,5 +1,6 @@
 package com.phis.apipractice_20200615
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -128,6 +129,13 @@ class ViewTopicDetailActivity : BaseActivity() {
                 })
 
         }
+
+        postReplyBtn.setOnClickListener {
+            val myIntent = Intent(mContext,EditReplyActivity::class.java)
+            startActivity(myIntent)
+        }
+
+
 
     }
 

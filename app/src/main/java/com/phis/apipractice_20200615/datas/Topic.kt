@@ -11,7 +11,7 @@ class Topic {
     var mySideId = 0
     var mySelectedSideIndex = -1
 
-
+    var mySideInfo: TopicSide? = null
 
     val replyList = ArrayList<TopicReply>()
 
@@ -47,23 +47,24 @@ class Topic {
                 val topicSide = TopicSide.getTopicSideFromJson(side)
                 t.sideList.add(topicSide)
 
-                if ( topicSide.id == t.mySideId){
+                if (topicSide.id == t.mySideId) {
                     t.mySelectedSideIndex = i
                 }
             }
 
-            if ( t.mySideId == -1 ){
+            if (t.mySideId == -1) {
                 t.mySelectedSideIndex = -1
             }
 
-
-
             val replyes = json.getJSONArray("replies")
-            for ( i in 0..replyes.length()-1){
+            for (i in 0..replyes.length() - 1) {
                 t.replyList.add(TopicReply.getTopicReplyFromJson(replyes.getJSONObject(i)))
             }
 
 
+            if (!json.isNull("my_side")) {
+                t.mySideInfo = TopicSide.getTopicSideFromJson(json.getJSONObject("my_side"))
+            }
             return t
         }
     }
