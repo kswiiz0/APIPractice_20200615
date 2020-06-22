@@ -21,6 +21,11 @@ class TopicReply {
     lateinit var writer: User
     var createAt = Calendar.getInstance()
 
+
+    var replyCount = 0
+    var likeCount = 0
+    var dislikeCount = 0
+
     companion object {
 
         fun getTopicReplyFromJson(json: JSONObject): TopicReply {
@@ -41,6 +46,10 @@ class TopicReply {
             val myPhoneTimeZone = tr.createAt.timeZone
             val timeOffset = myPhoneTimeZone.rawOffset / 1000 / 60 / 60
             tr.createAt.add(Calendar.HOUR, timeOffset)
+
+            tr.replyCount = json.getInt("reply_count")
+            tr.likeCount = json.getInt("like_count")
+            tr.dislikeCount = json.getInt("dislike_count")
 
 
             return tr
