@@ -199,8 +199,10 @@ class ServerUtil {
             val client = OkHttpClient()
 
             val urlBuilder = "${BASE_URL}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()
+                .addEncodedQueryParameter("order_type", "POPULAR")
 
             val urlString = urlBuilder.build().toString()
+
             val request =
                 Request.Builder()
                     .url(urlString)
