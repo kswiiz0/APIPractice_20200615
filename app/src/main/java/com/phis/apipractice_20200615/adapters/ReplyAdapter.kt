@@ -1,6 +1,9 @@
 package com.phis.apipractice_20200615.adapters
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,7 @@ import com.phis.apipractice_20200615.datas.TopicReply
 import com.phis.apipractice_20200615.utils.ServerUtil
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+
 
 class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicReply>) :
     ArrayAdapter<TopicReply>(mContext, resId, mList) {
@@ -53,13 +57,25 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
 
         val likeOrDisLikeEvent = View.OnClickListener {
             val isLike = it.id == R.id.likeBtn
-            ServerUtil.postRequestTopicReplyLike(mContext, item.id, isLike, object : ServerUtil.JsonResponseHandler{
-                override fun onResponse(json: JSONObject) {
+            ServerUtil.postRequestTopicReplyLike(
+                mContext,
+                item.id,
+                isLike,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(json: JSONObject) {
+                        val dataObj = json.getJSONObject("data")
+                        val reply = dataObj.getJSONObject("reply")
 
-                }
+                        item.likeCount = reply.getInt("like_count")
+                        item.dislikeCount = reply.getInt("dislike_count")
 
+                        Handler(Looper.getMainLooper()).post({
+                            //어댑터 내부에서는 직접 새로고침 가능
+                            notifyDataSetChanged()
+                        })
 
-            })
+                    }
+                })
         }
 
         likeBtn.setOnClickListener(likeOrDisLikeEvent)
