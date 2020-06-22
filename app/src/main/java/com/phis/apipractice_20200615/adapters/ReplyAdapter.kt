@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.TextView
 import com.phis.apipractice_20200615.R
 import com.phis.apipractice_20200615.datas.TopicReply
+import com.phis.apipractice_20200615.utils.ServerUtil
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 
 class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicReply>) :
@@ -48,6 +50,23 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         dislikeBtn.text = "싫어요 : ${item.dislikeCount}개"
 
         selectedSideTitleTxt.text = "(${item.selectedSide.title})"
+
+        val likeOrDisLikeEvent = View.OnClickListener {
+            val isLike = it.id == R.id.likeBtn
+            ServerUtil.postRequestTopicReplyLike(mContext, item.id, isLike, object : ServerUtil.JsonResponseHandler{
+                override fun onResponse(json: JSONObject) {
+
+                }
+
+
+            })
+        }
+
+        likeBtn.setOnClickListener(likeOrDisLikeEvent)
+        dislikeBtn.setOnClickListener(likeOrDisLikeEvent)
+
+
+
 
         return row
     }

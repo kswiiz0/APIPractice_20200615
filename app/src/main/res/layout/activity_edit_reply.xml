@@ -16,6 +16,7 @@
         />
 
     <TextView
+        android:id="@+id/topicTitleTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="실제 주제가 나올자리"
@@ -32,6 +33,7 @@
         />
 
     <TextView
+        android:id="@+id/mySideTitleTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="선택한 진영"
@@ -48,6 +50,7 @@
         />
     
     <EditText
+        android:id="@+id/myReplyEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -59,17 +62,9 @@
         />
 
     <Button
-
+        android:id="@+id/regReplyBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="의견등록하기"/>
-
-
-
-
-
-
-
-
 
 </LinearLayout>

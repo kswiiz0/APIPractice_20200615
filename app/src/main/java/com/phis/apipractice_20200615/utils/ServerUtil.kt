@@ -199,7 +199,7 @@ class ServerUtil {
             val client = OkHttpClient()
 
             val urlBuilder = "${BASE_URL}/topic/${topicId}".toHttpUrlOrNull()!!.newBuilder()
-                .addEncodedQueryParameter("order_type", "POPULAR")
+                .addEncodedQueryParameter("order_type", "NEW")
 
             val urlString = urlBuilder.build().toString()
 
@@ -258,6 +258,74 @@ class ServerUtil {
                 }
             })
         }
+
+        fun postRequestTopicReply(
+            mContext: Context,
+            topicId: Int,
+            content: String,
+            parentReplyId: Int = 0,
+            handler: ServerUtil.JsonResponseHandler
+        ) {
+            val client = OkHttpClient()
+            val urlString = "${BASE_URL}/topic_reply"
+            val formData = FormBody.Builder()
+                .add("topic_id", topicId.toString())
+                .add("content", content.toString())
+                .add("parent_reply_id", parentReplyId.toString())
+                .build()
+
+            val request = Request.Builder().url(urlString)
+                .header("X-Http-Token", ContextUtil.getUserToken(mContext))
+                .post(formData).build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+        }
+
+        fun postRequestTopicReplyLike(
+            context: Context,
+            replyId: Int,
+            isLike: Boolean,
+            handler: JsonResponseHandler?
+        ) {
+
+            val client = OkHttpClient()
+            val urlString = "${BASE_URL}/topic_reply_like"
+            val formData = FormBody.Builder()
+                .add("reply_id", replyId.toString())
+                .add("is_like", isLike.toString())
+                .build()
+
+            val request = Request.Builder().url(urlString)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .post(formData).build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+        }
+
 
 
     }

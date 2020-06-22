@@ -140,6 +140,10 @@ class ViewTopicDetailActivity : BaseActivity() {
                 myIntent.putExtra("topicTitle", mTopic.title)
                 myIntent.putExtra("mySideTitle", it.title)
 
+                myIntent.putExtra("topicId", mTopicId)
+
+
+
                 startActivity(myIntent)
             }.let {
 

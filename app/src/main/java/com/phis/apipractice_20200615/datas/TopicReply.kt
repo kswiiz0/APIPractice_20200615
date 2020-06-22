@@ -1,5 +1,6 @@
 package com.phis.apipractice_20200615.datas
 
+import android.view.View
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,8 +58,6 @@ class TopicReply {
             tr.dislikeCount = json.getInt("dislike_count")
 
             tr.selectedSide = TopicSide.getTopicSideFromJson(json.getJSONObject("selected_side"))
-
-
 
             return tr
         }
