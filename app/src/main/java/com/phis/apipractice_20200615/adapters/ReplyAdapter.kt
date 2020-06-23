@@ -53,6 +53,17 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         likeBtn.text = "좋아요 : ${item.likeCount}개"
         dislikeBtn.text = "싫어요 : ${item.dislikeCount}개"
 
+        if(item.isMyLike){
+            likeBtn.setBackgroundResource(R.drawable.red_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+        } else if ( item.isMyDislike){
+            likeBtn.setBackgroundResource(R.drawable.gray_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.blue_border_box)
+        } else{
+            likeBtn.setBackgroundResource(R.drawable.gray_border_box)
+            dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+        }
+
         selectedSideTitleTxt.text = "(${item.selectedSide.title})"
 
         val likeOrDisLikeEvent = View.OnClickListener {
@@ -69,11 +80,13 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
                         item.likeCount = reply.getInt("like_count")
                         item.dislikeCount = reply.getInt("dislike_count")
 
+                        item.isMyLike = reply.getBoolean("my_like")
+                        item.isMyDislike = reply.getBoolean("my_dislike")
+
                         Handler(Looper.getMainLooper()).post({
                             //어댑터 내부에서는 직접 새로고침 가능
                             notifyDataSetChanged()
                         })
-
                     }
                 })
         }
