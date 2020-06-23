@@ -2,9 +2,11 @@ package com.phis.apipractice_20200615
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.phis.apipractice_20200615.BaseActivity
 import com.phis.apipractice_20200615.R
+import com.phis.apipractice_20200615.adapters.ReReplyAdapter
 import com.phis.apipractice_20200615.datas.TopicReply
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_reply_detail.*
@@ -16,6 +18,7 @@ class ViewReplyDetailActivity : BaseActivity() {
     lateinit var mReply: TopicReply
 
     val mReReplyList = ArrayList<TopicReply>()
+    lateinit var reReplyAdapter: ReReplyAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +34,26 @@ class ViewReplyDetailActivity : BaseActivity() {
         val replyId = intent.getIntExtra("replyId", -1)
         mReplyId = replyId
 
+        reReplyAdapter = ReReplyAdapter(
+            mContext,
+            R.layout.listview_item_topic_re_replay,
+            mReReplyList
+        )
+        reReplyListView.adapter = reReplyAdapter
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getReplyFromServer()
+    }
+
+    fun getReplyFromServer() {
+
         ServerUtil.getRequestViewReplyDetail(
             mContext,
-            replyId,
+            mReplyId,
             object : ServerUtil.JsonResponseHandler {
                 override fun onResponse(json: JSONObject) {
 
@@ -42,14 +62,26 @@ class ViewReplyDetailActivity : BaseActivity() {
                     mReply = TopicReply.getTopicReplyFromJson(reply)
 
 
-
-
                     runOnUiThread {
+                        val replies = reply.getJSONArray("replies")
+                        for (i in 0..replies.length() - 1) {
+                            mReReplyList.add(
+                                TopicReply.getTopicReplyFromJson(
+                                    replies.getJSONObject(
+                                        i
+                                    )
+                                )
+                            )
+                            reReplyAdapter.notifyDataSetChanged()
+                        }
+
                         contentTxt.text = mReply.content
                         nickNameTxt.text = mReply.writer.nickname
                         selectedSideTitleTxt.text = "(${mReply.selectedSide.title})"
 
+
                     }
+
 
                 }
 
@@ -63,19 +95,21 @@ class ViewReplyDetailActivity : BaseActivity() {
 
         postReplyBtn.setOnClickListener {
             val reply = replyContentEdt.text.toString()
-            if ( reply.length < 5){
-                Toast.makeText(mContext,"5자리이상 입력하세요.",Toast.LENGTH_SHORT).show()
+            if (reply.length < 5) {
+                Toast.makeText(mContext, "5자리이상 입력하세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            ServerUtil.postRequestReReply(mContext,mReplyId,reply,object :ServerUtil.JsonResponseHandler{
-                override fun onResponse(json: JSONObject) {
+            ServerUtil.postRequestReReply(
+                mContext,
+                mReplyId,
+                reply,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(json: JSONObject) {
 
-                }
+                    }
 
-            })
-
-
+                })
 
 
         }

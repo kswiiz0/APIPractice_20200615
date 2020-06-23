@@ -57,8 +57,10 @@ class Topic {
             }
 
             val replyes = json.getJSONArray("replies")
-            for (i in 0..replyes.length() - 1) {
-                t.replyList.add(TopicReply.getTopicReplyFromJson(replyes.getJSONObject(i)))
+            replyes?.let {
+                for (i in 0..replyes.length() - 1) {
+                    t.replyList.add(TopicReply.getTopicReplyFromJson(replyes.getJSONObject(i)))
+                }
             }
 
 

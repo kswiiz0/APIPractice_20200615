@@ -26,11 +26,10 @@ class TopicReply {
     var dislikeCount = 0
 
     //어떤 진영을 선택하였는지...
-    lateinit var selectedSide : TopicSide
+    lateinit var selectedSide: TopicSide
 
     var isMyLike = false
     var isMyDislike = false
-
 
     companion object {
 
