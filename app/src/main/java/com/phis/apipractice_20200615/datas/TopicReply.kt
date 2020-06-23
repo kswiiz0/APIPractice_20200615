@@ -1,6 +1,5 @@
 package com.phis.apipractice_20200615.datas
 
-import android.view.View
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,13 +21,15 @@ class TopicReply {
     lateinit var writer: User
     var createAt = Calendar.getInstance()
 
-
     var replyCount = 0
     var likeCount = 0
     var dislikeCount = 0
 
-
+    //어떤 진영을 선택하였는지...
     lateinit var selectedSide : TopicSide
+
+    var isMyLike = false
+    var isMyDislike = false
 
 
     companion object {
@@ -58,6 +59,10 @@ class TopicReply {
             tr.dislikeCount = json.getInt("dislike_count")
 
             tr.selectedSide = TopicSide.getTopicSideFromJson(json.getJSONObject("selected_side"))
+
+            tr.isMyLike = json.getBoolean("my_like")
+            tr.isMyDislike = json.getBoolean("my_dislike")
+
 
             return tr
         }
