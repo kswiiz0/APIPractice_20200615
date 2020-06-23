@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".adapters.ViewReplyDetailActivity"></activity>
+        <activity android:name=".ViewReplyDetailActivity"></activity>
         <activity android:name=".EditReplyActivity" />
         <activity android:name=".ViewTopicDetailActivity" />
         <activity

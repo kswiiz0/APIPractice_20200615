@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import com.phis.apipractice_20200615.R
+import com.phis.apipractice_20200615.ViewReplyDetailActivity
 import com.phis.apipractice_20200615.datas.TopicReply
 import com.phis.apipractice_20200615.utils.ServerUtil
 import org.json.JSONObject
@@ -107,7 +108,9 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         dislikeBtn.setOnClickListener(likeOrDisLikeEvent)
 
         replyBtn.setOnClickListener{
-            val myIntent = Intent(mContext,ViewReplyDetailActivity::class.java)
+            val myIntent = Intent(mContext,
+                ViewReplyDetailActivity::class.java)
+            myIntent.putExtra("replyId", item.id )
             mContext.startActivity(myIntent)
         }
 
