@@ -1,16 +1,16 @@
 package com.phis.apipractice_20200615
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
-import android.widget.RelativeLayout
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
-import com.phis.apipractice_20200615.BaseActivity
-import com.phis.apipractice_20200615.R
 import com.phis.apipractice_20200615.adapters.ReReplyAdapter
 import com.phis.apipractice_20200615.datas.TopicReply
 import com.phis.apipractice_20200615.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_reply_detail.*
 import org.json.JSONObject
+
 
 class ViewReplyDetailActivity : BaseActivity() {
 
@@ -76,12 +76,17 @@ class ViewReplyDetailActivity : BaseActivity() {
                                 )
                             )
                             reReplyAdapter.notifyDataSetChanged()
-                            reReplyListView.smoothScrollToPosition(mReReplyList.size-1)
+                            reReplyListView.smoothScrollToPosition(mReReplyList.size - 1)
                         }
 
                         contentTxt.text = mReply.content
                         nickNameTxt.text = mReply.writer.nickname
                         selectedSideTitleTxt.text = "(${mReply.selectedSide.title})"
+
+
+                        val imm =
+                            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(replyContentEdt.windowToken, 0)
 
 
                     }
@@ -112,7 +117,7 @@ class ViewReplyDetailActivity : BaseActivity() {
                     override fun onResponse(json: JSONObject) {
                         runOnUiThread {
                             replyContentEdt.text.clear()
-                            Toast.makeText(mContext,"답글을 등록했습니다.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, "답글을 등록했습니다.", Toast.LENGTH_SHORT).show()
                             getReplyFromServer()
 
                         }
