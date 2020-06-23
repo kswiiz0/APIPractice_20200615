@@ -293,6 +293,40 @@ class ServerUtil {
             })
         }
 
+        fun postRequestReReply(
+            mContext: Context,
+            parentReplyId: Int = 0,
+            content: String,
+            handler: ServerUtil.JsonResponseHandler
+        ) {
+            val client = OkHttpClient()
+            val urlString = "${BASE_URL}/topic_reply"
+            val formData = FormBody.Builder()
+                .add("parent_reply_id", parentReplyId.toString())
+                .add("content", content.toString())
+                .build()
+
+            val request = Request.Builder().url(urlString)
+                .header("X-Http-Token", ContextUtil.getUserToken(mContext))
+                .post(formData).build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val bodyString = response.body!!.string()
+
+                    val json = JSONObject(bodyString)
+                    Log.d("JSON응답", json.toString())
+
+                    handler?.onResponse(json)
+                }
+            })
+        }
+
+
+
         fun postRequestTopicReplyLike(
             context: Context,
             replyId: Int,
@@ -326,7 +360,7 @@ class ServerUtil {
             })
         }
 
-        fun getRequestReplyDetail(
+        fun getRequestViewReplyDetail(
             context: Context,
             replyId: Int,
             handler: JsonResponseHandler?
