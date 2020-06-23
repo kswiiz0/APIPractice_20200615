@@ -1,6 +1,7 @@
 package com.phis.apipractice_20200615.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 
@@ -105,11 +106,10 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         likeBtn.setOnClickListener(likeOrDisLikeEvent)
         dislikeBtn.setOnClickListener(likeOrDisLikeEvent)
 
-
-
-
-
-
+        replyBtn.setOnClickListener{
+            val myIntent = Intent(mContext,ViewReplyDetailActivity::class.java)
+            mContext.startActivity(myIntent)
+        }
 
         return row
     }
