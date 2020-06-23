@@ -56,12 +56,23 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         if(item.isMyLike){
             likeBtn.setBackgroundResource(R.drawable.red_border_box)
             dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.red))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.gray))
+
         } else if ( item.isMyDislike){
             likeBtn.setBackgroundResource(R.drawable.gray_border_box)
             dislikeBtn.setBackgroundResource(R.drawable.blue_border_box)
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.gray))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.blue))
+
         } else{
             likeBtn.setBackgroundResource(R.drawable.gray_border_box)
             dislikeBtn.setBackgroundResource(R.drawable.gray_border_box)
+
+            likeBtn.setTextColor(mContext.resources.getColor(R.color.gray))
+            dislikeBtn.setTextColor(mContext.resources.getColor(R.color.gray))
         }
 
         selectedSideTitleTxt.text = "(${item.selectedSide.title})"
