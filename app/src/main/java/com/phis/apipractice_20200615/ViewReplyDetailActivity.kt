@@ -63,6 +63,9 @@ class ViewReplyDetailActivity : BaseActivity() {
 
 
                     runOnUiThread {
+
+                        mReReplyList.clear()
+
                         val replies = reply.getJSONArray("replies")
                         for (i in 0..replies.length() - 1) {
                             mReReplyList.add(
@@ -73,6 +76,7 @@ class ViewReplyDetailActivity : BaseActivity() {
                                 )
                             )
                             reReplyAdapter.notifyDataSetChanged()
+                            reReplyListView.smoothScrollToPosition(mReReplyList.size-1)
                         }
 
                         contentTxt.text = mReply.content
@@ -106,7 +110,12 @@ class ViewReplyDetailActivity : BaseActivity() {
                 reply,
                 object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(json: JSONObject) {
+                        runOnUiThread {
+                            replyContentEdt.text.clear()
+                            Toast.makeText(mContext,"답글을 등록했습니다.",Toast.LENGTH_SHORT).show()
+                            getReplyFromServer()
 
+                        }
                     }
 
                 })
