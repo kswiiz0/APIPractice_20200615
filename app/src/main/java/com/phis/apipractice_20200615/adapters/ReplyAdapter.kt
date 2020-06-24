@@ -15,6 +15,7 @@ import com.phis.apipractice_20200615.R
 import com.phis.apipractice_20200615.ViewReplyDetailActivity
 import com.phis.apipractice_20200615.datas.TopicReply
 import com.phis.apipractice_20200615.utils.ServerUtil
+import com.phis.apipractice_20200615.utils.TimeUtil
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 
@@ -47,9 +48,8 @@ class ReplyAdapter(val mContext: Context, val resId: Int, val mList: List<TopicR
         nicknameTxt.text = item.writer.nickname
         contentTxt.text = item.content
 
-        val sdf = SimpleDateFormat("M월 d일 a h시 m분")
-
-        createTimeTxt.text = sdf.format(item.createAt.time)
+//        createTimeTxt.text = sdf.format(item.createAt.time)
+        createTimeTxt.text = TimeUtil.getTimeAgoFromCalendar(item.createAt)
 
         replyBtn.text = "답글 : ${item.replyCount}개"
         likeBtn.text = "좋아요 : ${item.likeCount}개"
