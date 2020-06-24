@@ -10,12 +10,14 @@
         android:padding="10dp"
         >
         <TextView
+            android:id="@+id/notiTitleTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:text="~님이 내 의견에 답글을 남겼습니다."/>
         <TextView
+            android:id="@+id/notiMessageTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
