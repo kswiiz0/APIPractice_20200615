@@ -6,6 +6,7 @@ import android.view.View
 import com.phis.apipractice_20200615.adapters.NotificationAdapter
 import com.phis.apipractice_20200615.datas.Notification
 import com.phis.apipractice_20200615.utils.ServerUtil
+import kotlinx.android.synthetic.main.activity_notification_list.*
 import org.json.JSONObject
 
 class NotificationListActivity : BaseActivity() {
@@ -55,8 +56,8 @@ class NotificationListActivity : BaseActivity() {
     override fun setValues() {
         activityNotificationBtn.visibility = View.GONE
 
-
-
+        notiAdapter = NotificationAdapter(mContext,R.layout.listview_item_nofitication,mNotiList)
+        notiListView.adapter = notiAdapter
 
 
     }
