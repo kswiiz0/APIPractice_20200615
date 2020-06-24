@@ -31,6 +31,8 @@ class ViewReplyDetailActivity : BaseActivity() {
 
     override fun setValues() {
 
+        setTitle("의견상세화면")
+
         val replyId = intent.getIntExtra("replyId", -1)
         mReplyId = replyId
 

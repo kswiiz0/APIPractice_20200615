@@ -29,6 +29,9 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     override fun setValues() {
 
+        setTitle("주제상세화면")
+        
+
         mTopicId = intent.getIntExtra("topic_id", -1)
         if (mTopicId == -1) {
             Toast.makeText(mContext, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()

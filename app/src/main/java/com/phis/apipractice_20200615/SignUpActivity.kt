@@ -22,6 +22,7 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        setTitle("회원가입")
 
     }
 
