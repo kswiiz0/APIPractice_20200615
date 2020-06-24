@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.phis.apipractice_20200615.R
 import com.phis.apipractice_20200615.datas.Notification
 import com.phis.apipractice_20200615.datas.Topic
+import com.phis.apipractice_20200615.utils.TimeUtil
 import kotlinx.android.synthetic.main.topic_list_item.view.*
 
 class NotificationAdapter(
@@ -31,10 +32,16 @@ class NotificationAdapter(
         val row = tempRow!!
         val notiTitleTxt = row.findViewById<TextView>(R.id.notiTitleTxt)
         val notiMessageTxt = row.findViewById<TextView>(R.id.notiMessageTxt)
+        val notiCreatedAtTxt = row.findViewById<TextView>(R.id.notiCreatedAtTxt)
+
 
         val data = mList[position]
         notiTitleTxt.text = data.title
         notiMessageTxt.text = data.message
+        
+
+        notiCreatedAtTxt.text = TimeUtil.getTimeAgoFromCalendar(data.createAt)
+
 
         return row
     }

@@ -32,7 +32,7 @@ class Notification {
 
             //서버의 String 시간 > Kotlin Date 으로 반영.
             val createdAt = json.getString("created_at")
-            val parsingFormat = SimpleDateFormat("YYYY-MM-DD HH:mm:ss")
+            val parsingFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
             noti.createAt.time = parsingFormat.parse(createdAt)
 
@@ -40,10 +40,6 @@ class Notification {
             val myPhoneTimeZone = noti.createAt.timeZone
             val timeOffset = myPhoneTimeZone.rawOffset / 1000 / 60 / 60
             noti.createAt.add(Calendar.HOUR, timeOffset)
-
-
-
-
 
             return noti
         }
