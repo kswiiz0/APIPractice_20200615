@@ -28,7 +28,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
-        setTitle("토론목록")
+//        setTitle("토론목록")
 
         myViewAdapter = TopicAdapter(mContext, R.layout.topic_list_item, topicList)
         topicListView.adapter = myViewAdapter

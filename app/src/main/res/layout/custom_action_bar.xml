@@ -2,16 +2,34 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@color/black"
-    >
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/activityImageView"
+        android:layout_width="65dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:src="@drawable/supreme_logo"
+        android:visibility="visible" />
+
     <TextView
         android:id="@+id/activityTitleTxt"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_gravity="center"
         android:text="액티비티이름이 나올자리"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        />
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:id="@+id/activityNotificationBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:src="@drawable/notification_icon" />
 
 </FrameLayout>
