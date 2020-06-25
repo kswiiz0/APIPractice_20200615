@@ -3,6 +3,7 @@ package com.phis.apipractice_20200615
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
@@ -15,6 +16,7 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var activityTitleTxt: TextView
     lateinit var activityImageView: ImageView
     lateinit var activityNotificationBtn: ImageView
+    lateinit var activity_notiFrameLayout: FrameLayout
 
     abstract fun setValues()
     abstract fun setupEvent()
@@ -62,6 +64,9 @@ abstract class BaseActivity : AppCompatActivity() {
         activityImageView = supportActionBar!!.customView.findViewById(R.id.activityImageView)
         activityNotificationBtn =
             supportActionBar!!.customView.findViewById(R.id.activityNotificationBtn)
+
+        activity_notiFrameLayout = supportActionBar!!.customView.findViewById(R.id.activity_notiFrameLayout)
+
 
 
         //알림버튼이 눌리면 어느화면에서도 알림화면으로 이동

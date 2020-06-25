@@ -54,7 +54,7 @@ class NotificationListActivity : BaseActivity() {
 
 
     override fun setValues() {
-        activityNotificationBtn.visibility = View.GONE
+        activity_notiFrameLayout.visibility = View.GONE
 
         notiAdapter = NotificationAdapter(mContext,R.layout.listview_item_nofitication,mNotiList)
         notiListView.adapter = notiAdapter

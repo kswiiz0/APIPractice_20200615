@@ -1,9 +1,10 @@
 package com.phis.apipractice_20200615
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import com.phis.apipractice_20200615.adapters.ReReplyAdapter
 import com.phis.apipractice_20200615.datas.TopicReply
@@ -103,6 +104,9 @@ class ViewReplyDetailActivity : BaseActivity() {
     }
 
     override fun setupEvent() {
+
+
+
 
         postReplyBtn.setOnClickListener {
             val reply = replyContentEdt.text.toString()
