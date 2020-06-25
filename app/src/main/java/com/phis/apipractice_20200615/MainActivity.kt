@@ -5,7 +5,9 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBar
+import com.google.firebase.iid.FirebaseInstanceId
 import com.phis.apipractice_20200615.adapters.TopicAdapter
 import com.phis.apipractice_20200615.datas.Topic
 import com.phis.apipractice_20200615.utils.ContextUtil
@@ -32,6 +34,11 @@ class MainActivity : BaseActivity() {
 
         myViewAdapter = TopicAdapter(mContext, R.layout.topic_list_item, topicList)
         topicListView.adapter = myViewAdapter
+
+
+        //기기의 고유 값(DeviceToken)이 어떤 값인지?
+        Log.d("기기토큰값", FirebaseInstanceId.getInstance().token)
+
 
         ServerUtil.getRequestMainInfo(mContext, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(json: JSONObject) {
