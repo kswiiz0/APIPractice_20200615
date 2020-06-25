@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.phis.apipractice_20200615.utils.ServerUtil
+import org.json.JSONObject
 
 abstract class BaseActivity : AppCompatActivity() {
     val mContext = this
@@ -17,6 +19,8 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var activityImageView: ImageView
     lateinit var activityNotificationBtn: ImageView
     lateinit var activity_notiFrameLayout: FrameLayout
+    lateinit var activityNotificationCntTxt: TextView
+
 
     abstract fun setValues()
     abstract fun setupEvent()
@@ -65,9 +69,12 @@ abstract class BaseActivity : AppCompatActivity() {
         activityNotificationBtn =
             supportActionBar!!.customView.findViewById(R.id.activityNotificationBtn)
 
-        activity_notiFrameLayout = supportActionBar!!.customView.findViewById(R.id.activity_notiFrameLayout)
+        activity_notiFrameLayout =
+            supportActionBar!!.customView.findViewById(R.id.activity_notiFrameLayout)
 
 
+        activityNotificationCntTxt =
+            supportActionBar!!.customView.findViewById(R.id.activityNotificationCntTxt)
 
         //알림버튼이 눌리면 어느화면에서도 알림화면으로 이동
 
@@ -77,6 +84,34 @@ abstract class BaseActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    //모든 화면에서 알림 갯수를 받아와서 표시
+    override fun onResume() {
+        super.onResume()
+
+
+        supportActionBar?.let {
+            ServerUtil.getRequestNotification(mContext, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(json: JSONObject) {
+                    val data = json.getJSONObject("data")
+                    val unreadNotiCount = data.getInt("unread_nity_count")
+
+                    runOnUiThread {
+                        if (unreadNotiCount > 0) {
+                            activityNotificationCntTxt.visibility = View.VISIBLE
+                            activityNotificationCntTxt.text = unreadNotiCount.toString()
+                        } else {
+                            activityNotificationCntTxt.visibility = View.GONE
+                        }
+
+                    }
+                }
+
+
+            })
+
+        }
     }
 
 
