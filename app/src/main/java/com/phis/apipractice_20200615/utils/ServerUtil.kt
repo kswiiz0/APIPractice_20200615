@@ -2,6 +2,7 @@ package com.phis.apipractice_20200615.utils
 
 import android.content.Context
 import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
@@ -163,6 +164,8 @@ class ServerUtil {
             val client = OkHttpClient()
 
             val urlBuilder = "${BASE_URL}/v2/main_info".toHttpUrlOrNull()!!.newBuilder()
+                .addEncodedQueryParameter("device_token", FirebaseInstanceId.getInstance().token)
+                .addEncodedQueryParameter("os", "Android")
 
             val urlString = urlBuilder.build().toString()
             val request =
