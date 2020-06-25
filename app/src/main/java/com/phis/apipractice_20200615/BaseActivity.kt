@@ -1,5 +1,6 @@
 package com.phis.apipractice_20200615
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.phis.apipractice_20200615.utils.ContextUtil
 import com.phis.apipractice_20200615.utils.ServerUtil
 import org.json.JSONObject
 
@@ -90,26 +92,31 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-
         supportActionBar?.let {
-            ServerUtil.getRequestNotification(mContext, false, object : ServerUtil.JsonResponseHandler {
-                override fun onResponse(json: JSONObject) {
-                    val data = json.getJSONObject("data")
-                    val unreadNotiCount = data.getInt("unread_noty_count")
+            if (ContextUtil.getUserToken(mContext) != "") {
 
-                    runOnUiThread {
-                        if (unreadNotiCount > 0) {
-                            activityNotificationCntTxt.visibility = View.VISIBLE
-                            activityNotificationCntTxt.text = unreadNotiCount.toString()
-                        } else {
-                            activityNotificationCntTxt.visibility = View.GONE
+                ServerUtil.getRequestNotification(
+                    mContext,
+                    false,
+                    object : ServerUtil.JsonResponseHandler {
+                        override fun onResponse(json: JSONObject) {
+                            val data = json.getJSONObject("data")
+                            val unreadNotiCount = data.getInt("unread_noty_count")
+
+                            runOnUiThread {
+                                if (unreadNotiCount > 0) {
+                                    activityNotificationCntTxt.visibility = View.VISIBLE
+                                    activityNotificationCntTxt.text = unreadNotiCount.toString()
+                                } else {
+                                    activityNotificationCntTxt.visibility = View.GONE
+                                }
+
+                            }
                         }
 
-                    }
-                }
 
-
-            })
+                    })
+            }
 
         }
     }
