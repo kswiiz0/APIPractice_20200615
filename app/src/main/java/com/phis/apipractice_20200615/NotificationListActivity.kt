@@ -33,6 +33,7 @@ class NotificationListActivity : BaseActivity() {
 
         ServerUtil.getRequestNotification(
             mContext,
+            true,
             object : ServerUtil.JsonResponseHandler {
                 override fun onResponse(json: JSONObject) {
                     val data = json.getJSONObject("data")

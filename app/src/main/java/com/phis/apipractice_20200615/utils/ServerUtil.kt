@@ -397,11 +397,11 @@ class ServerUtil {
 
         }
 
-        fun getRequestNotification(mContext: Context, handler: ServerUtil.JsonResponseHandler) {
+        fun getRequestNotification(mContext: Context, needAllNotis: Boolean = true, handler: ServerUtil.JsonResponseHandler) {
             val client = OkHttpClient()
 
             val urlBuilder = "${BASE_URL}/notification".toHttpUrlOrNull()!!.newBuilder()
-
+                .addEncodedQueryParameter("need_all_notis", needAllNotis.toString())
             val urlString = urlBuilder.build().toString()
             val request =
                 Request.Builder()

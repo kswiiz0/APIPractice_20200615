@@ -92,7 +92,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
         supportActionBar?.let {
-            ServerUtil.getRequestNotification(mContext, object : ServerUtil.JsonResponseHandler {
+            ServerUtil.getRequestNotification(mContext, false, object : ServerUtil.JsonResponseHandler {
                 override fun onResponse(json: JSONObject) {
                     val data = json.getJSONObject("data")
                     val unreadNotiCount = data.getInt("unread_noty_count")
