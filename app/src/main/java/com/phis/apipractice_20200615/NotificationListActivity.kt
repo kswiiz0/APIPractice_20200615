@@ -39,9 +39,18 @@ class NotificationListActivity : BaseActivity() {
                     val notis = data.getJSONArray("notifications")
                     //기존Noti 제거
                     mNotiList.clear()
-                    for(i in 0..notis.length()-1){
+                    for (i in 0..notis.length() - 1) {
                         mNotiList.add(Notification.getNotificationFromJson(notis.getJSONObject(i)))
                     }
+
+                    //알림을 받았으면 최신 알림의 id를 서버로 전파
+                    //여기까지 알림을 읽었다고 서버에 알려줌. (unread_noti_count를 0으로)
+                    ServerUtil.postRequestNotification(
+                        mContext,
+                        mNotiList[0].id,
+                        null
+                    )
+
 
                     runOnUiThread {
                         notiAdapter.notifyDataSetChanged()
@@ -56,7 +65,7 @@ class NotificationListActivity : BaseActivity() {
     override fun setValues() {
         activity_notiFrameLayout.visibility = View.GONE
 
-        notiAdapter = NotificationAdapter(mContext,R.layout.listview_item_nofitication,mNotiList)
+        notiAdapter = NotificationAdapter(mContext, R.layout.listview_item_nofitication, mNotiList)
         notiListView.adapter = notiAdapter
 
 

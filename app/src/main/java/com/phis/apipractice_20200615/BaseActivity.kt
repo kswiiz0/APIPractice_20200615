@@ -95,7 +95,7 @@ abstract class BaseActivity : AppCompatActivity() {
             ServerUtil.getRequestNotification(mContext, object : ServerUtil.JsonResponseHandler {
                 override fun onResponse(json: JSONObject) {
                     val data = json.getJSONObject("data")
-                    val unreadNotiCount = data.getInt("unread_nity_count")
+                    val unreadNotiCount = data.getInt("unread_noty_count")
 
                     runOnUiThread {
                         if (unreadNotiCount > 0) {
