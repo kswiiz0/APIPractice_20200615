@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "158712443058",
+    "firebase_url": "https://apipractice-20200615.firebaseio.com",
+    "project_id": "apipractice-20200615",
+    "storage_bucket": "apipractice-20200615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158712443058:android:ff6ec0d1fcfb01ce5719ab",
+        "android_client_info": {
+          "package_name": "com.phis.apipractice_20200615"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158712443058-g8upvtpe1s9fi7cl50t19hle62doec55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJZ6qamDpSsgMwi7hJIVgB9MGTUJ1n-pA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158712443058-g8upvtpe1s9fi7cl50t19hle62doec55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
